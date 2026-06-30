@@ -1,0 +1,67 @@
+// Variáveis do Projeto Agrinho 2026
+let producao = 0;
+let saudeAmbiente = 100;
+let moedas = 50;
+let statusTexto = "Bem-vindo à Fazenda Sustentável!";
+
+function setup() {
+  createCanvas(600, 400);
+  
+  // Botão para Ação Sustentável
+  let btnSustentavel = createButton('Plantio com Rotação de Culturas');
+  btnSustentavel.position(20, 320);
+  btnSustentavel.mousePressed(acaoSustentavel);
+
+  // Botão para Ação Predatória
+  let btnPredatorio = createButton('Uso Excessivo de Química');
+  btnPredatorio.position(300, 320);
+  btnPredatorio.mousePressed(acaoPredatoria);
+}
+
+function draw() {
+  background(220, 245, 220); // Fundo verde claro lembrando o campo
+  
+  // Painel de Títulos
+  fill(34, 139, 34);
+  textSize(20);
+  text("Agrinho 2026: Agroforte e Sustentável", 20, 40);
+  
+  // Exibição dos Dados na Tela
+  textSize(16);
+  fill(0);
+  text("Produção de Alimentos: " + producao + " toneladas", 20, 100);
+  text("Saúde do Meio Ambiente: " + saudeAmbiente + "%", 20, 140);
+  text("Recursos Disponíveis: $ " + moedas, 20, 180);
+  
+  // Alertas de Situação
+  fill(0, 0, 255);
+  text("Status: " + statusTexto, 20, 240);
+  
+  // Condição de Derrota (Desequilíbrio ambiental)
+  if (saudeAmbiente <= 20) {
+    fill(255, 0, 0);
+    textSize(24);
+    text("GAME OVER: O ecossistema entrou em colapso!", 50, 200);
+    noLoop(); // Para o jogo
+  }
+}
+
+// Função de Equilíbrio (Ganha menos, mas protege a terra)
+function acaoSustentavel() {
+  if (moedas >= 10) {
+    producao += 15;
+    saudeAmbiente = min(100, saudeAmbiente + 5); // Regenera o solo
+    moedas -= 10;
+    statusTexto = "Ótimo! Solo protegido com tecnologia e respeito à natureza.";
+  } else {
+    statusTexto = "Dinheiro insuficiente para investir em sustentabilidade.";
+  }
+}
+
+// Função de Desequilíbrio (Ganha muito dinheiro rápido, destrói o solo)
+function acaoPredatoria() {
+  producao += 40;
+  saudeAmbiente -= 25; // Prejudica severamente o ambiente
+  moedas += 30;
+  statusTexto = "Cuidado! Alta produção gerou forte contaminação da água e solo!";
+}
